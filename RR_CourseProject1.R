@@ -99,7 +99,54 @@ missing_values
 
 ## C. Create a new dataset that is equal to the original dataset but with the missing data filled in
 
-## Create average number of steps per 5 min interval
+## Merge original data set with cStepInt data set
+
+data2 <- merge(data, cStepInt, by = "interval", sort = TRUE, suffixes = c(".data1", ".data2"))
+
+## Identify NA values
+
+navalues = which(is.na(data$steps))
+
+## Replace NA values
+
+data[navalues,"steps"] = data2[navalues, "steps.data2"]
+
+## D. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day.
+
+mCompleteData <- melt(data, id.vars = "date", measure.vars = "steps", na.rm = FALSE)
+
+cCompleteData <- dcast(mCompleteData, date ~ variable, sum)
+
+plot(cCompleteData$date, cCompleteData$steps,
+     type = "h",
+     main = "Complete Total Steps per Day", 
+     xlab = "Date", 
+     ylab = "Number of steps per day",
+     lwd = 4,
+     col = "blue")
+abline(h = mean(cCompleteData$steps), lwd = 1)
+
+## Calculate the new mean and median of the total number of steps taken per day
+
+summary(cCompleteData)
+
+mean_complete_steps <- mean(cCompleteData$steps)
+mean_complete_steps
+
+med_complete_steps <- median(cCompleteData$steps)
+med_complete_steps
+
+
+## Do these values differ from the estimates from the first part of the assignment?
+
+## Yes
+
+diffmean <- mean_complete_steps - mean_steps
+diffmean
+
+diffmed < med_complete_steps - med_steps
+diffmed
+
 
 
 
