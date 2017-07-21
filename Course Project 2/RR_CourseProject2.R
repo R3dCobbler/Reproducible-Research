@@ -60,23 +60,6 @@ stormdata1[stormdata1$CROPDMGEXP %in% c("", "+", "-", "?"), "CROPDMGEXP"] <- "0"
 stormdata1[stormdata1$CROPDMGEXP %in% c(=> "0" & <= "8"), "CROPDMGEXP"] <- "0"
 
 
-datasub <- data[, c("EVTYPE", "PROPDMG", "PROPDMGEXP", "CROPDMG", "CROPDMGEXP")]
-datasub[datasub$PROPDMGEXP %in% c("", "+", "-", "?"), "PROPDMGEXP"] <- "0"
-datasub[datasub$CROPDMGEXP %in% c("", "+", "-", "?"), "CROPDMGEXP"] <- "0"
-unique(c(datasub$PROPDMGEXP, datasub$CROPDMGEXP))
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 validEXP <- c("B", "h", "H", "K", "m", "M")
 
@@ -88,18 +71,7 @@ stormdata2 <- stormdata1 %>%
 
 
 
-
-
-
-
-
-
-
-
 # Prepare data for plotting
-
-
-
 
 top10fatal <- aggregate(stormdata1$FATALITIES, by = list(EVTYPE = stormdata1$EVTYPE), sum)
 fatality <- fatality[order(fatality$x, decreasing = TRUE), ]
@@ -116,12 +88,6 @@ ggplot(fatality, aes(x = EVTYPE, y = x) +
         labs(title = "Number of fatalities caused by severe weather in the US since 1950",
              x = "Weather Event", y = "Number of fatalities") 
        
-
-
-## Strategy for Data Transformation
-
-
-## Strategy for Low Quality Documentation
 
 
 
