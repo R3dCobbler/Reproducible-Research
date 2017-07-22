@@ -27,8 +27,6 @@ head(storm)
 library(plyr)
 library(dplyr)
 library(ggplot2)
-library(grid)
-library(gridExtra)
 
 storm1 <- storm %>%
         select(EVTYPE, FATALITIES, INJURIES, PROPDMG, PROPDMGEXP, CROPDMG, CROPDMGEXP)
@@ -54,7 +52,7 @@ levels(storm1$CROPDMGEXP)
 # To determine the monetary loss, the damage column ("CROPDMG" or "PROPDMG") should be multiplied by the exponential value in the corresponding "...DMGEXP" column.
 # Estimates should be rounded to three significant digits, followed by an alphabetical character signifying the magnitude of the number, 
 # i.e., 1.55B for $1,550,000,000. Alphabetical characters used to signify magnitude include "h" for hundreds, “K” for thousands, “M” for millions, and “B” for billions.
-# However, several entries contain other characters or numbers in the EXP columns.
+# However, several entries contain other characters in the EXP columns.
 # Some of the entries contain numbers and so for this exercise I will ignore these as it is not clear in the documentation how to handle them.
 
 # Identify exponentials
